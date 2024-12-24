@@ -1,12 +1,18 @@
 package com.Facu.Screenview.modelos;
 
-public class Titulo {
+public class Titulo implements Comparable<Titulo> {
     private String nombre;
     private int FechaLanzamiento;
     private int DuracionMinutos;
     private boolean IncluidoEnElPlan;
     private double sumaEvaluaciones;
     private int totalEvaluaciones;
+
+    //Constructor que establece nombre y fecha obligatorio
+    public Titulo(String nombre, int fechaLanzamiento) {
+        this.nombre = nombre;
+        FechaLanzamiento = fechaLanzamiento;
+    }
 
     //Setter y Getter
     public void setNombre(String nombre) {
@@ -51,5 +57,11 @@ public class Titulo {
 
     public double calculaMedia(){
         return sumaEvaluaciones / totalEvaluaciones;
+    }
+
+    //Metodo para comparar titulos y ordenarlos alfabeticamente
+    @Override
+    public int compareTo(Titulo otroTitulo) {
+        return this.getNombre().compareTo(otroTitulo.getNombre());
     }
 }
