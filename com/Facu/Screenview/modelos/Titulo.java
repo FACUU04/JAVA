@@ -1,7 +1,13 @@
 package com.Facu.Screenview.modelos;
 
+import com.Facu.Screenview.excepciones.ERRORconversionException;
+import com.google.gson.annotations.SerializedName;
+
 public class Titulo implements Comparable<Titulo> {
+
+    //@SerializedName("Title")
     private String nombre;
+    //@SerializedName("year")
     private int FechaLanzamiento;
     private int DuracionMinutos;
     private boolean IncluidoEnElPlan;
@@ -12,6 +18,18 @@ public class Titulo implements Comparable<Titulo> {
     public Titulo(String nombre, int fechaLanzamiento) {
         this.nombre = nombre;
         FechaLanzamiento = fechaLanzamiento;
+    }
+
+//Constructor de titulo para recibir un TituloOmdb
+    public Titulo(TituloOMDB miTituloOMDB) {
+        this.nombre = miTituloOMDB.title();
+        this.FechaLanzamiento = Integer.valueOf(miTituloOMDB.year());
+
+        //Creando propias excepciones y tratandolas
+        if (miTituloOMDB.runtime().contains("N/A")){
+            throw new ERRORconversionException("No pude convertir la duracion porque contiene N/A");
+        }
+        this.DuracionMinutos = Integer.valueOf(miTituloOMDB.runtime().substring(0,3).replace(" ", ""));
     }
 
     //Setter y Getter
@@ -63,5 +81,13 @@ public class Titulo implements Comparable<Titulo> {
     @Override
     public int compareTo(Titulo otroTitulo) {
         return this.getNombre().compareTo(otroTitulo.getNombre());
+    }
+
+    @Override
+    public String toString() {
+        return "(nombre='" + nombre +
+                ",FechaLanzamiento=" + FechaLanzamiento +
+                ", Duracion: " + getDuracionMinutos()+")"
+                 ;
     }
 }
