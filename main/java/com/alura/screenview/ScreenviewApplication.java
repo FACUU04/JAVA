@@ -1,4 +1,5 @@
 package com.alura.screenview;
+import com.alura.screenview.principal.EjemplosStreams;
 import com.alura.screenview.principal.Principal;
 
 import com.alura.screenview.modelos.DataSerie;
@@ -28,6 +29,8 @@ public class ScreenviewApplication implements CommandLineRunner {
 
 		Principal principal = new Principal();
 		principal.muestraMenu();
+
+
 
 
     }
